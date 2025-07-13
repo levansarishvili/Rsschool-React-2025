@@ -16,9 +16,8 @@ class ProductList extends Component<Props> {
     if (error) return <p>Error: {error}</p>;
 
     return (
-      <section>
+      <section className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {products.map((product) => (
-          // <div key={product.id}>{product.title}</div>
           <ProductCard key={product.id} productObj={product} />
         ))}
       </section>

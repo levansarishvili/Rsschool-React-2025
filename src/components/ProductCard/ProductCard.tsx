@@ -10,15 +10,25 @@ class ProductCard extends Component<Props> {
     const { productObj } = this.props;
 
     return (
-      <div className="border p-4 rounded shadow">
-        <h2 className="text-lg font-semibold">{productObj.name}</h2>
-        <p className="text-sm text-gray-600">{productObj.description}</p>
+      <div className="flex flex-col gap-2 justify-between items-center min-w-56 border p-4 rounded-md hover:shadow hover:bg-[#fff7ed] transition-all duration-200 cursor-pointer">
         <img
           src={productObj.image}
           alt={productObj.name}
-          className="mt-2 w-10 h-auto object-cover"
+          className="w-16 h-auto object-cover"
         />
-        <p className="mt-2 font-bold">${productObj.price}</p>
+        <h2 className="text-base md:text-lg font-semibold">
+          {productObj.name}
+        </h2>
+        <p
+          title={productObj.description}
+          className="text-xs md:text-sm text-gray-600 line-clamp-4"
+        >
+          {productObj.description}
+        </p>
+
+        <p className="text-sm md:text-base   font-semibold">
+          ${productObj.price}
+        </p>
       </div>
     );
   }
