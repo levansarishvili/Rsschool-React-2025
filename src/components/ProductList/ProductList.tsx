@@ -1,15 +1,31 @@
 import { Component } from 'react';
-import ProductCard from '../ProductCard/ProductCard';
+import ProductCard from '../ProductCard/ProductCard.tsx';
 
-class ProductList extends Component {
+type Product = {
+  id: number;
+  title: string;
+  // etc.
+};
+
+type Props = {
+  products: Product[];
+  loading: boolean;
+  error: string | null;
+};
+
+class ProductList extends Component<Props> {
   render() {
+    const { products, loading, error } = this.props;
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error}</p>;
+
     return (
-      <section className="">
-        <ul className="">
-          <li>
-            <ProductCard />
-          </li>
-        </ul>
+      <section>
+        {products.map((product) => (
+          // <div key={product.id}>{product.title}</div>
+          <ProductCard nameproduct />
+        ))}
       </section>
     );
   }
