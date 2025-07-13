@@ -29,7 +29,7 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="h-screen text-center flex flex-col gap-4 items-center justify-center">
           <h2 className="text-lg">Something went wrong!</h2>
-          <img className="w-72" src="./assets/page-error.jpg" alt="" />
+          <img className="w-80" src="./assets/page-error.png" alt="" />
           <p>{this.state.error.message}</p>
         </div>
       );

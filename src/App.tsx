@@ -3,8 +3,6 @@ import Search from './components/Search/Search.tsx';
 import ProductList from './components/ProductList/ProductList.tsx';
 import ErrorButton from './components/ErrorButton.tsx';
 import type { ProductsApiResponse, AppState } from './types/types.ts';
-import ErrorBoundary from './components/ErrorBoundary.tsx';
-
 import './loader.css';
 
 class App extends Component<AppState> {
@@ -29,12 +27,16 @@ class App extends Component<AppState> {
       const response = await fetch(
         `${apiUrl}products/search?q=${encodeURIComponent(term)}`
       );
+
+      // If data fetching failed throw error message
       if (!response.ok) {
-        throw new Error('Failed to fetch products!');
+        throw new Error(
+          `${response.status} (${response.statusText}): Unable to fetch products for "${term}".`
+        );
       }
       const data: ProductsApiResponse = await response.json();
 
-      // Extract
+      // Extract only necessary properties
       const productsData = data.products.map((product) => {
         return {
           id: product.id,
@@ -42,9 +44,11 @@ class App extends Component<AppState> {
           description: product.description,
           image: product.images[0],
           price: product.price,
+          rating: product.rating,
         };
       });
 
+      // Update component state
       this.setState({ products: productsData || [], loading: false });
     } catch (error) {
       let errorMessage = 'Unknown error occurred';
@@ -67,44 +71,36 @@ class App extends Component<AppState> {
     const { products, loading, error, searchQuery } = this.state;
 
     return (
-      <ErrorBoundary>
-        <div className="font-poppins text-base w-full px-4 md:px-8 py-4 md:py-6 flex flex-col gap-6 md:gap-10 justify-center min-h-screen">
-          <h1 className="text-lg md:text-xl text-center font-semibold">
-            RS-React-App
-          </h1>
+      <div className="font-montserrat text-base w-full px-4 md:px-8 py-4 md:py-6 flex flex-col gap-6 md:gap-10 justify-center min-h-screen">
+        <h1 className="text-lg md:text-xl text-center font-semibold">
+          RS-React-App
+        </h1>
 
-          <Search searchQuery={searchQuery} onSearch={this.handleSearch} />
+        <Search searchQuery={searchQuery} onSearch={this.handleSearch} />
 
-          <div className="w-full flex-1 flex justify-center items-center min-h-[300px]">
-            {loading && <div className="loader"></div>}
+        <div className="w-full flex-1 flex justify-center items-center min-h-[300px]">
+          {loading && <div className="loader"></div>}
 
-            {!loading && products.length === 0 && !error && (
-              <div className="flex flex-col gap-4 justify-center items-center">
-                <img
-                  className="w-36"
-                  src="./assets/item-not-found.jpg"
-                  alt="Item not found!"
-                />
-                <p className="text-gray-500">
-                  No products matched your search!
-                </p>
-              </div>
-            )}
-
-            {error && <p className="text-red-500">Error: {error}</p>}
-
-            {!loading && !error && products.length > 0 && (
-              <ProductList
-                products={products}
-                loading={loading}
-                error={error}
+          {!loading && products.length === 0 && !error && (
+            <div className="flex flex-col gap-4 justify-center items-center">
+              <img
+                className="w-56"
+                src="./assets/item-not-found.png"
+                alt="Item not found!"
               />
-            )}
-          </div>
+              <p className="text-gray-500">No products matched your search!</p>
+            </div>
+          )}
 
-          <ErrorButton />
+          {error && <p className="text-red-500">Error: {error}</p>}
+
+          {!loading && !error && products.length > 0 && (
+            <ProductList products={products} loading={loading} error={error} />
+          )}
         </div>
-      </ErrorBoundary>
+
+        <ErrorButton />
+      </div>
     );
   }
 }

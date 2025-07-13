@@ -4,7 +4,11 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
+        montserrat: ['Montserrat', 'sans-serif'],
+      },
+      colors: {
+        primary: '#6d28d9',
+        secondary: '#7c3aed',
       },
     },
   },
