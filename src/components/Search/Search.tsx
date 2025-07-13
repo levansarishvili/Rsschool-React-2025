@@ -5,8 +5,16 @@ type Props = {
   onSearch: (query: string) => void;
 };
 
-class Search extends Component<Props> {
-  state = { input: this.props.searchQuery };
+type State = {
+  input: string;
+};
+
+class Search extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    const savedQuery = localStorage.getItem('searchQuery') || '';
+    this.state = { input: savedQuery };
+  }
 
   // Handle input change
   handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +31,6 @@ class Search extends Component<Props> {
 
     // Store searchQuery in local storage
     localStorage.setItem('searchQuery', query);
-    this.setState({ input: '' });
   };
 
   render() {

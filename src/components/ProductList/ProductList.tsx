@@ -10,10 +10,7 @@ type Props = {
 
 class ProductList extends Component<Props> {
   render() {
-    const { products, loading, error } = this.props;
-
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error: {error}</p>;
+    const { products } = this.props;
 
     return (
       <section className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">

@@ -5,8 +5,8 @@ import ErrorButton from './components/ErrorButton.tsx';
 import type { ProductsApiResponse, AppState } from './types/types.ts';
 import './loader.css';
 
-class App extends Component<AppState> {
-  state = {
+class App extends Component {
+  state: AppState = {
     products: [],
     loading: true,
     error: null,
@@ -56,6 +56,7 @@ class App extends Component<AppState> {
         errorMessage = error.message;
       }
       console.error('Fetch error:', errorMessage);
+      // Update state
       this.setState({ error: errorMessage, loading: false });
     }
   };
@@ -72,13 +73,17 @@ class App extends Component<AppState> {
 
     return (
       <div className="font-montserrat text-base w-full px-4 md:px-8 py-4 md:py-6 flex flex-col gap-6 md:gap-10 justify-center min-h-screen">
-        <h1 className="text-lg md:text-xl text-center font-semibold">
-          RS-React-App
-        </h1>
+        {/* Search component */}
+        <header className="flex flex-col gap-6 md:gap-10">
+          <h1 className="text-lg md:text-xl text-center font-semibold">
+            RS-React-App
+          </h1>
 
-        <Search searchQuery={searchQuery} onSearch={this.handleSearch} />
+          <Search searchQuery={searchQuery} onSearch={this.handleSearch} />
+        </header>
 
-        <div className="w-full flex-1 flex justify-center items-center min-h-[300px]">
+        {/* Product list component */}
+        <main className="w-full flex-1 flex justify-center items-center min-h-[300px]">
           {loading && <div className="loader"></div>}
 
           {!loading && products.length === 0 && !error && (
@@ -97,9 +102,12 @@ class App extends Component<AppState> {
           {!loading && !error && products.length > 0 && (
             <ProductList products={products} loading={loading} error={error} />
           )}
-        </div>
+        </main>
 
-        <ErrorButton />
+        {/* Footer with error button */}
+        <footer className="flex justify-end">
+          <ErrorButton />
+        </footer>
       </div>
     );
   }

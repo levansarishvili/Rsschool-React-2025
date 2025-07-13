@@ -24,13 +24,23 @@ class ErrorBoundary extends Component<Props, State> {
     console.error('Uncaught error:', error, errorInfo);
   }
 
+  handleReaload() {
+    window.location.reload();
+  }
+
   render() {
     if (this.state.hasError && this.state.error) {
       return (
         <div className="h-screen text-center flex flex-col gap-4 items-center justify-center">
-          <h2 className="text-lg">Something went wrong!</h2>
-          <img className="w-80" src="./assets/page-error.png" alt="" />
+          <img className="w-80" src="./assets/page-error.jpg" alt="" />
+          <h2 className="text-lg">Oops! Something went wrong.</h2>
           <p>{this.state.error.message}</p>
+          <button
+            className="w-24 text-white bg-primary rounded-md p-2"
+            onClick={this.handleReaload}
+          >
+            Reload
+          </button>
         </div>
       );
     }
