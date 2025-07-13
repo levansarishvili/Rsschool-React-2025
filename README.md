@@ -59,7 +59,3 @@ This project is a small React application built using **class components** and d
 - [DummyJSON API](https://dummyjson.com/)
 
 ---
-
-```
-
-```

@@ -32,7 +32,11 @@ class ErrorBoundary extends Component<Props, State> {
     if (this.state.hasError && this.state.error) {
       return (
         <div className="h-screen text-center flex flex-col gap-4 items-center justify-center">
-          <img className="w-80" src="./assets/page-error.jpg" alt="" />
+          <img
+            className="w-80"
+            src="./assets/page-error.jpg"
+            alt="Page error"
+          />
           <h2 className="text-lg">Oops! Something went wrong.</h2>
           <p>{this.state.error.message}</p>
           <button

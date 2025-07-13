@@ -97,7 +97,16 @@ class App extends Component {
             </div>
           )}
 
-          {error && <p className="text-red-500">Error: {error}</p>}
+          {error && (
+            <div className="flex flex-col gap-4">
+              <img
+                className="w-80"
+                src="./assets/page-error.jpg"
+                alt="Page error"
+              />
+              <p className="">Error: {error}</p>
+            </div>
+          )}
 
           {!loading && !error && products.length > 0 && (
             <ProductList products={products} loading={loading} error={error} />
