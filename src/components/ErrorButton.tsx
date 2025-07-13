@@ -2,7 +2,7 @@ import { Component } from 'react';
 
 class ErrorButton extends Component {
   throwError = () => {
-    throw Error();
+    throw new Error('Simulated crash');
   };
 
   render() {

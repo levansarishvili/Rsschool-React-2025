@@ -2,10 +2,12 @@ import { Component } from 'react';
 import Search from './components/Search/Search.tsx';
 import ProductList from './components/ProductList/ProductList.tsx';
 import ErrorButton from './components/ErrorButton.tsx';
-import type { ProductsApiResponse } from './types/types.ts';
+import type { ProductsApiResponse, AppState } from './types/types.ts';
+import ErrorBoundary from './components/ErrorBoundary.tsx';
+
 import './loader.css';
 
-class App extends Component {
+class App extends Component<AppState> {
   state = {
     products: [],
     loading: true,
@@ -20,7 +22,7 @@ class App extends Component {
   // Product fetch method
   fetchProducts = async (query = 'phone') => {
     const apiUrl = import.meta.env.VITE_API_BASE_URL;
-    const searchQuery = localStorage.getItem('searchQuery') && '';
+    // const searchQuery = localStorage.getItem('searchQuery') && '';
 
     try {
       const response = await fetch(`${apiUrl}products/search?q=${query}`);
@@ -32,10 +34,11 @@ class App extends Component {
       // Extract
       const productsData = data.products.map((product) => {
         return {
+          id: product.id,
           name: product.title,
           description: product.description,
-          price: product.price,
           image: product.thumbnail,
+          price: product.price,
         };
       });
       console.log(productsData);
@@ -61,16 +64,26 @@ class App extends Component {
   render() {
     const { products, loading, error, searchQuery } = this.state;
 
-    if (loading) return <div className="loader"></div>;
-    if (error) return <p>Error: {error}</p>;
-
     return (
-      <div>
-        <h1>rs-react-app</h1>
-        <Search searchQuery={searchQuery} onSearch={this.handleSearch} />
-        <ProductList products={products} loading={loading} error={error} />
-        <ErrorButton />
-      </div>
+      <ErrorBoundary>
+        <div>
+          <h1>rs-react-app</h1>
+          <Search searchQuery={searchQuery} onSearch={this.handleSearch} />
+          <div>
+            {loading && <div className="loader"></div>}
+            {error && <p className="text-red-500">Error: {error}</p>}
+            {!loading && !error && (
+              <ProductList
+                products={products}
+                loading={loading}
+                error={error}
+              />
+            )}
+          </div>
+
+          <ErrorButton />
+        </div>
+      </ErrorBoundary>
     );
   }
 }

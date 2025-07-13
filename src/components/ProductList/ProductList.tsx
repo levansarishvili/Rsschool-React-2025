@@ -1,14 +1,9 @@
 import { Component } from 'react';
 import ProductCard from '../ProductCard/ProductCard.tsx';
-
-type Product = {
-  id: number;
-  title: string;
-  // etc.
-};
+import type { ProductType } from '../../types/types.ts';
 
 type Props = {
-  products: Product[];
+  products: ProductType[];
   loading: boolean;
   error: string | null;
 };
@@ -24,7 +19,7 @@ class ProductList extends Component<Props> {
       <section>
         {products.map((product) => (
           // <div key={product.id}>{product.title}</div>
-          <ProductCard nameproduct />
+          <ProductCard key={product.id} productObj={product} />
         ))}
       </section>
     );

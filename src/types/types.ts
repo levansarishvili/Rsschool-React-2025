@@ -1,8 +1,23 @@
+export interface AppState {
+  products: ProductType[];
+  loading: boolean;
+  error: string | null;
+  searchQuery: string;
+}
+
 export interface ProductsApiResponse {
   products: ApiProduct[];
   total: number;
   skip: number;
   limit: number;
+}
+
+export interface ProductType {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  image: string;
 }
 
 export interface ApiProduct {
