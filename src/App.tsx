@@ -20,12 +20,15 @@ class App extends Component<AppState> {
   }
 
   // Product fetch method
-  fetchProducts = async (query = 'phone') => {
+  fetchProducts = async (query = 'ball') => {
     const apiUrl = import.meta.env.VITE_API_BASE_URL;
-    // const searchQuery = localStorage.getItem('searchQuery') && '';
+    const searchQuery = localStorage.getItem('searchQuery') || '';
 
     try {
-      const response = await fetch(`${apiUrl}products/search?q=${query}`);
+      const term = searchQuery || query;
+      const response = await fetch(
+        `${apiUrl}products/search?q=${encodeURIComponent(term)}`
+      );
       if (!response.ok) {
         throw new Error('Failed to fetch products!');
       }
@@ -37,11 +40,10 @@ class App extends Component<AppState> {
           id: product.id,
           name: product.title,
           description: product.description,
-          image: product.thumbnail,
+          image: product.images[0],
           price: product.price,
         };
       });
-      console.log(productsData);
 
       this.setState({ products: productsData || [], loading: false });
     } catch (error) {
@@ -66,13 +68,32 @@ class App extends Component<AppState> {
 
     return (
       <ErrorBoundary>
-        <div>
-          <h1>rs-react-app</h1>
+        <div className="font-poppins text-base w-full px-4 md:px-8 py-4 md:py-6 flex flex-col gap-6 md:gap-10 justify-center min-h-screen">
+          <h1 className="text-lg md:text-xl text-center font-semibold">
+            RS-React-App
+          </h1>
+
           <Search searchQuery={searchQuery} onSearch={this.handleSearch} />
-          <div>
+
+          <div className="w-full flex-1 flex justify-center items-center min-h-[300px]">
             {loading && <div className="loader"></div>}
+
+            {!loading && products.length === 0 && !error && (
+              <div className="flex flex-col gap-4 justify-center items-center">
+                <img
+                  className="w-36"
+                  src="./assets/item-not-found.jpg"
+                  alt="Item not found!"
+                />
+                <p className="text-gray-500">
+                  No products matched your search!
+                </p>
+              </div>
+            )}
+
             {error && <p className="text-red-500">Error: {error}</p>}
-            {!loading && !error && (
+
+            {!loading && !error && products.length > 0 && (
               <ProductList
                 products={products}
                 loading={loading}

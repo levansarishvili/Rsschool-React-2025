@@ -27,8 +27,9 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError && this.state.error) {
       return (
-        <div className="text-red-600 text-center mt-4 h-full flex flex-col items-center justify-center">
-          <h2>Something went wrong. </h2>
+        <div className="h-screen text-center flex flex-col gap-4 items-center justify-center">
+          <h2 className="text-lg">Something went wrong!</h2>
+          <img className="w-72" src="./assets/page-error.jpg" alt="" />
           <p>{this.state.error.message}</p>
         </div>
       );
