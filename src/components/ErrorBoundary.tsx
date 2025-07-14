@@ -24,7 +24,7 @@ class ErrorBoundary extends Component<Props, State> {
     console.error('Uncaught error:', error, errorInfo);
   }
 
-  handleReaload() {
+  handleReload() {
     window.location.reload();
   }
 
@@ -41,7 +41,7 @@ class ErrorBoundary extends Component<Props, State> {
           <p>{this.state.error.message}</p>
           <button
             className="w-24 text-white bg-primary rounded-md p-2"
-            onClick={this.handleReaload}
+            onClick={this.handleReload}
           >
             Reload
           </button>
