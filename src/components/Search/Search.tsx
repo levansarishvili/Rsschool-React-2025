@@ -26,7 +26,6 @@ class Search extends Component<Props, State> {
     e.preventDefault();
 
     const query = this.state.input.trim();
-    if (!query) return;
     this.props.onSearch(query);
 
     // Store searchQuery in local storage

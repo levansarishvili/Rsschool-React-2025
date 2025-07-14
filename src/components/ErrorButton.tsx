@@ -1,5 +1,4 @@
 import { Component } from 'react';
-import { TriangleAlert } from 'lucide-react';
 
 class ErrorButton extends Component {
   state = { crash: false };
@@ -16,11 +15,10 @@ class ErrorButton extends Component {
 
     return (
       <button
-        className="flex gap-2 bg-red-600 text-white p-2 rounded-md hover:bg-red-500 transition-colors"
+        className="text-sm flex gap-2 bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-500 transition-colors"
         onClick={this.handleClick}
       >
-        <TriangleAlert />
-        Throw Error
+        Test Error Boundary
       </button>
     );
   }

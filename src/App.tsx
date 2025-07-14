@@ -25,7 +25,7 @@ class App extends Component {
     try {
       const term = searchQuery || query;
       const response = await fetch(
-        `${apiUrl}products/search?q=${encodeURIComponent(term)}`
+        `${apiUrl}products/search?q=${encodeURIComponent(term)}&limit=12`
       );
 
       // If data fetching failed throw error message
@@ -72,7 +72,7 @@ class App extends Component {
     const { products, loading, error, searchQuery } = this.state;
 
     return (
-      <div className="font-montserrat text-base w-full px-4 md:px-8 py-4 md:py-6 flex flex-col gap-6 md:gap-10 justify-center min-h-screen">
+      <div className="font-inter text-base w-full px-4 md:px-8 py-4 md:py-6 flex flex-col gap-6 md:gap-10 justify-center min-h-screen">
         {/* Search component */}
         <header className="flex flex-col gap-6 md:gap-10">
           <h1 className="text-lg md:text-xl text-center font-semibold">
