@@ -3,6 +3,7 @@ import Search from './components/Search/Search.tsx';
 import ProductList from './components/ProductList/ProductList.tsx';
 import ErrorButton from './components/ErrorButton.tsx';
 import type { ProductsApiResponse, AppState } from './types/types.ts';
+import { IoLogoGithub } from 'react-icons/io';
 import './loader.css';
 
 class App extends Component {
@@ -72,7 +73,7 @@ class App extends Component {
     const { products, loading, error, searchQuery } = this.state;
 
     return (
-      <div className="font-inter text-base w-full px-4 md:px-8 py-4 md:py-6 flex flex-col gap-6 md:gap-10 justify-center min-h-screen">
+      <div className="font-inter text-base w-full px-4 md:px-8 pt-4 md:pt-6 flex flex-col gap-6 md:gap-10 justify-center min-h-screen">
         {/* Search component */}
         <header className="flex flex-col gap-6 md:gap-10">
           <h1 className="text-lg md:text-xl text-center font-semibold">
@@ -114,8 +115,29 @@ class App extends Component {
         </main>
 
         {/* Footer with error button */}
-        <footer className="flex justify-end">
-          <ErrorButton />
+        <footer className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 text-sm">
+          <a href="https://rs.school/" target="_blank" rel="noreferrer">
+            <img
+              className="w-8"
+              src="./assets/rs-logo.svg"
+              alt="Rs school logo"
+            />
+          </a>
+
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/levansarishvili"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-primary transition-colors"
+            >
+              <IoLogoGithub className="text-2xl" />
+            </a>
+            <p>&copy; Tbilisi 2025</p>
+          </div>
+          <div className="flex gap-4">
+            <ErrorButton />
+          </div>
         </footer>
       </div>
     );
