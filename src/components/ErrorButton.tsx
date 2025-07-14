@@ -3,7 +3,6 @@ import { Component } from 'react';
 class ErrorButton extends Component {
   state = { crash: false };
 
-  // Handle error button click
   handleClick = () => this.setState({ crash: true });
 
   render() {
