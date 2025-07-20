@@ -35,6 +35,7 @@ class ProductCard extends Component<Props> {
         <div className="flex">
           {Array.from({ length: Math.round(productObj?.rating) }, (_, i) => (
             <Star
+              data-testid="star-icon"
               className="size-4 stroke-yellow-600 fill-yellow-600"
               key={i}
             />
