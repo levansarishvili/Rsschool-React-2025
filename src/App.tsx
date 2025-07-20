@@ -23,7 +23,6 @@ class App extends Component {
     try {
       const data = await fetchProductsApi(query);
       const productsData = transformProducts(data.products);
-      console.log(productsData);
 
       this.setState({ products: productsData || [], loading: false });
     } catch (error) {
