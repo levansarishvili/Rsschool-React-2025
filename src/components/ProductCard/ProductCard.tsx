@@ -11,7 +11,10 @@ class ProductCard extends Component<Props> {
     const { productObj } = this.props;
 
     return (
-      <div className="flex flex-col gap-2 justify-between items-center min-w-56 border p-4 rounded-md hover:shadow hover:bg-[#f5f3ff] transition-all duration-200 cursor-pointer">
+      <div
+        data-testid="product-card"
+        className="flex flex-col gap-2 justify-between items-center min-w-56 border p-4 rounded-md hover:shadow hover:bg-[#f5f3ff] transition-all duration-200 cursor-pointer"
+      >
         <img
           src={productObj.image}
           alt={productObj.name}
@@ -32,6 +35,7 @@ class ProductCard extends Component<Props> {
         <div className="flex">
           {Array.from({ length: Math.round(productObj?.rating) }, (_, i) => (
             <Star
+              data-testid="star-icon"
               className="size-4 stroke-yellow-600 fill-yellow-600"
               key={i}
             />

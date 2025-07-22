@@ -40,6 +40,7 @@ class Search extends Component<Props, State> {
           <input
             className="w-full border rounded-md px-4 py-2 text-sm outline-primary placeholder:text-sm placeholder:italic pr-10"
             type="text"
+            aria-label="Search for products"
             placeholder="Search for products (e.g. Samsung, Apple, Watch, Ball, Sport)"
             value={this.state.input}
             onChange={this.handleChange}

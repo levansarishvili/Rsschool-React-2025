@@ -4,7 +4,6 @@ import ProductList from './components/ProductList/ProductList.tsx';
 import ErrorButton from './components/ErrorButton.tsx';
 import type { AppState } from './types/types.ts';
 import { IoLogoGithub } from 'react-icons/io';
-import Loader from './components/loader/Loader.tsx';
 import { fetchProductsApi } from './services/api.ts';
 import { transformProducts } from './utils/transform.ts';
 
@@ -56,33 +55,7 @@ class App extends Component {
         </header>
 
         <main className="w-full flex-1 flex justify-center items-center min-h-[300px]">
-          {loading && <Loader />}
-
-          {!loading && products.length === 0 && !error && (
-            <div className="flex flex-col gap-4 justify-center items-center">
-              <img
-                className="w-56"
-                src="./assets/item-not-found.png"
-                alt="Item not found!"
-              />
-              <p className="text-gray-500">No products matched your search!</p>
-            </div>
-          )}
-
-          {error && (
-            <div className="flex flex-col gap-4">
-              <img
-                className="w-80"
-                src="./assets/page-error.jpg"
-                alt="Page error"
-              />
-              <p className="">Error: {error}</p>
-            </div>
-          )}
-
-          {!loading && !error && products.length > 0 && (
-            <ProductList products={products} loading={loading} error={error} />
-          )}
+          <ProductList products={products} loading={loading} error={error} />
         </main>
 
         <footer className="flex flex-col md:flex-row items-center justify-between gap-4 p-4 text-sm">
